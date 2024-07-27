@@ -1,0 +1,120 @@
+/*write a program that takes an array and Find Second largest element in an array
+For example -: Input: array = [12, 35, 1, 10, 34, 1]
+Output: The second largest element is 34. */
+
+function findSecondLargest(arr) {
+    if (arr.length < 2) {
+        throw new Error("Array must contain at least two elements.");
+    }
+
+    let first = -Infinity, second = -Infinity;
+
+    for (const num of arr) {
+        if (num > first) {
+            second = first;
+            first = num;
+        } else if (num > second && num < first) {
+            second = num;
+        }
+    }
+
+    if (second === -Infinity) {
+        throw new Error("There is no second largest element.");
+    }
+
+    return second;
+}
+
+// Example usage:
+const array = [12, 35, 1, 10, 34, 1];
+const secondLargest = findSecondLargest(array);
+console.log("The second largest element is " + secondLargest);
+
+/*Write a program to remove duplicates from an unsorted linked list
+For example -: Input: array =  [3,5,3,7,8,5,10]
+Output: [3,5,7,8,10] */
+
+class Node {
+    constructor(value) {
+        this.value = value;
+        this.next = null;
+    }
+}
+
+class LinkedList {
+    constructor() {
+        this.head = null;
+    }
+
+    append(value) {
+        if (!this.head) {
+            this.head = new Node(value);
+        } else {
+            let current = this.head;
+            while (current.next) {
+                current = current.next;
+            }
+            current.next = new Node(value);
+        }
+    }
+
+    removeDuplicates() {
+        const seen = new Set();
+        let current = this.head;
+        let prev = null;
+        while (current) {
+            if (seen.has(current.value)) {
+                prev.next = current.next;
+            } else {
+                seen.add(current.value);
+                prev = current;
+            }
+            current = current.next;
+        }
+    }
+
+    toArray() {
+        const elements = [];
+        let current = this.head;
+        while (current) {
+            elements.push(current.value);
+            current = current.next;
+        }
+        return elements;
+    }
+}
+
+function createLinkedList(arr) {
+    const linkedList = new LinkedList();
+    arr.forEach(item => linkedList.append(item));
+    return linkedList;
+}
+
+// Example usage:
+const arr = [3, 5, 3, 7, 8, 5, 10];
+const linkedList = createLinkedList(arr);
+console.log("Original List:", linkedList.toArray());
+
+linkedList.removeDuplicates();
+console.log("List after removing duplicates:", linkedList.toArray());
+
+
+/*
+write a program that will moves all Zeroes to end of an array
+For example -: Input: array = [1,2,0,4,3,0,5,0];
+Output : array = [1, 2, 4, 3, 5, 0, 0, 0];.
+*/
+
+function moveZeroesAtEnd(arr4) {
+    let j = 0;
+    for (let i = 0; i < arr4.length; i++) {
+        if (arr4[i] !== 0) {
+            [arr4[i], arr4[j]] = [arr4[j], arr4[i]];
+            j++;
+        }
+    }
+    return arr4;
+}
+let arr4 = [1, 2, 0, 4, 3, 0, 5, 0];
+arr4 = moveZeroesAtEnd(arr4);
+console.log("List after moving zeros to end:",arr4);
