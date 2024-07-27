@@ -1,0 +1,98 @@
+/*Write a program which take a number N as input from the user and You need to reverse the number.
+For example -:
+Input: Num=1998
+Output: Num=8991
+*/
+
+function reverseNumber(num) {
+
+    return parseInt(num.toString().split('').reverse().join(''), 10);
+}
+
+const num = 1998;
+const reversedNum = reverseNumber(num);
+console.log("Input Number:", num);
+console.log("Reversed Number:", reversedNum);
+
+
+/*Given two sorted linked lists consisting of N and M nodes respectively. In which you have to merge two objects and return a single objects.
+For example -:
+Input: arr1= [3,8,4,12]
+           arr2= [15,1,6,19]
+Output: [1,3,4,6,8,12,15,19]*/
+
+class Node {
+    constructor(value) {
+        this.value = value;
+        this.next = null;
+    }
+}
+
+class LinkedList {
+    constructor() {
+        this.head = null;
+    }
+
+    append(value) {
+        const newNode = new Node(value);
+        if (!this.head) {
+            this.head = newNode;
+        } else {
+            let current = this.head;
+            while (current.next) {
+                current = current.next;
+            }
+            current.next = newNode;
+        }
+    }
+
+    toArray() {
+        const elements = [];
+        let current = this.head;
+        while (current) {
+            elements.push(current.value);
+            current = current.next;
+        }
+        return elements;
+    }
+
+    static fromArray(arr) {
+        const linkedList = new LinkedList();
+        arr.forEach(value => linkedList.append(value));
+        return linkedList;
+    }
+}
+
+function mergeSortedArrays(arr1, arr2) {
+    const mergedArray = [...arr1, ...arr2].sort((a, b) => a - b);
+    return LinkedList.fromArray(mergedArray);
+}
+
+// Example usage:
+const arr1 = [3, 8, 4, 12];
+const arr2 = [15, 1, 6, 19];
+const mergedList = mergeSortedArrays(arr1, arr2);
+console.log("Merged List:", mergedList.toArray());
+
+
+/*You are given a string S containing both uppercase and lowercase letters.           
+Note:-   You need to find out the number of vowels in the given string.
+For example -:
+Input: Hackingly*/
+
+function countVowels(str) {
+    const vowels = new Set(['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']);
+    let count = 0;
+
+    for (let char of str) {
+        if (vowels.has(char)) {
+            count++;
+        }
+    }
+
+    return count;
+}
+
+const input = "Hackingly";
+const vowelCount = countVowels(input);
+console.log(`Number of vowels in "${input}":`, vowelCount);
